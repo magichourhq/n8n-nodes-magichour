@@ -13,8 +13,11 @@ driven from a shared catalog (`catalog/operations.json`).
 **Self-hosted** — Settings → Community Nodes → Install, then enter
 `n8n-nodes-magichour`.
 
-**n8n Cloud** — after verification, search for "Magic Hour" in the nodes panel.
-Until then, install the community package by name: `n8n-nodes-magichour`.
+**n8n Cloud** — only verified community nodes can be installed. Once this
+package is verified, search for "Magic Hour" in the nodes panel. Installing
+the package by npm name is available only on self-hosted n8n.
+
+See [n8n's community-node installation options](https://docs.n8n.io/integrations/community-nodes/installation-and-management/).
 
 Maintained by [malihashar](https://github.com/malihashar); product branding and API are Magic Hour.
 
