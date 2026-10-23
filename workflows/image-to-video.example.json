@@ -1,5 +1,5 @@
 {
-  "name": "Magic Hour — Image to Video",
+  "name": "Magic Hour — Product photo to video",
   "nodes": [
     {
       "parameters": {},
@@ -11,8 +11,8 @@
     },
     {
       "parameters": {
-        "url": "https://cdn.magichour.ai/assets/example-portrait.png",
-        "options": {}
+        "url": "https://raw.githubusercontent.com/magichourhq/skills/e43c205454e2b98f155cf1632cf158220c564907/examples/aurora/guided-image.png",
+        "options": { "response": { "response": { "responseFormat": "file" } } }
       },
       "id": "http-image",
       "name": "Fetch Sample Image",
@@ -26,9 +26,9 @@
         "operation": "imageToVideo",
         "imageSource": "binary",
         "imageBinaryProperty": "data",
-        "prompt": "Subtle smile, soft camera push-in, cinematic lighting",
+        "prompt": "Slow, smooth dolly in. Keep the bottle fixed and unchanged. Preserve the AURORA label, glass geometry, cap and colors. Soft rim light moves across the glass. No cuts, new objects or text changes.",
         "durationSeconds": 5,
-        "externalId": "demo-i2v-1",
+        "externalId": "aurora-product-video",
         "waitForCompletion": true,
         "timeoutSeconds": 900,
         "options": {
@@ -39,13 +39,18 @@
       "name": "Magic Hour",
       "type": "n8n-nodes-magichour.magicHour",
       "typeVersion": 1,
-      "position": [480, 0],
-      "credentials": {
-        "magicHourApi": {
-          "id": "REPLACE_ME",
-          "name": "Magic Hour API"
-        }
-      }
+      "position": [480, 0]
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.outputUrl }}",
+        "options": { "response": { "response": { "responseFormat": "file" } } }
+      },
+      "id": "download-video",
+      "name": "Download Video",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [720, 0]
     }
   ],
   "connections": {
@@ -54,6 +59,9 @@
     },
     "Fetch Sample Image": {
       "main": [[{ "node": "Magic Hour", "type": "main", "index": 0 }]]
+    },
+    "Magic Hour": {
+      "main": [[{ "node": "Download Video", "type": "main", "index": 0 }]]
     }
   },
   "meta": {
