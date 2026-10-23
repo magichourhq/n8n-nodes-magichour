@@ -16,7 +16,8 @@
     {
       "parameters": {
         "operation": "download",
-        "fileId": { "__rl": true, "mode": "list", "value": "" }
+        "fileId": { "__rl": true, "mode": "list", "value": "" },
+        "options": { "binaryPropertyName": "portrait" }
       },
       "id": "portrait",
       "name": "Portrait from Drive",
@@ -28,7 +29,8 @@
     {
       "parameters": {
         "operation": "download",
-        "fileId": { "__rl": true, "mode": "list", "value": "" }
+        "fileId": { "__rl": true, "mode": "list", "value": "" },
+        "options": { "binaryPropertyName": "audio" }
       },
       "id": "audio",
       "name": "Audio from Drive",
@@ -40,7 +42,7 @@
     {
       "parameters": {
         "mode": "combine",
-        "combinationMode": "mergeByPosition",
+        "combineBy": "combineByPosition",
         "options": {}
       },
       "id": "merge",
@@ -54,9 +56,9 @@
         "resource": "video",
         "operation": "talkingPhoto",
         "imageSource": "binary",
-        "imageBinaryProperty": "data",
+        "imageBinaryProperty": "portrait",
         "audioSource": "binary",
-        "audioBinaryProperty": "data",
+        "audioBinaryProperty": "audio",
         "durationSeconds": 10,
         "externalId": "ugc-talking-photo",
         "waitForCompletion": true,
@@ -68,7 +70,7 @@
       "typeVersion": 1,
       "position": [720, 300],
       "credentials": { "magicHourApi": { "id": "REPLACE", "name": "Magic Hour API" } },
-      "notes": "If merge renames binaries, set Image/Audio Field Name to the merged binary keys"
+      "notes": "Uses the portrait and audio binary fields from the Drive downloads"
     },
     {
       "parameters": {
