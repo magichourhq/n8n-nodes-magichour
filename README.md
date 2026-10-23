@@ -214,3 +214,16 @@ Same support surface as the Magic Hour Apify Actors:
 ## License
 
 [MIT](LICENSE)
+
+## Recover an accepted job
+
+With Continue On Fail enabled, a generation that times out or encounters a polling
+error returns `status: failed` with its accepted `projectId`, known `creditsCharged`,
+and the input `externalId`. Save those fields and use Project > Get Status with the
+same ID and media type. Do not repeat the create action to recover a rendering delay.
+A completed job with no usable download returns an error instead of `succeeded`.
+Failed-job credit refunds are reflected when the provider returns the final charge.
+
+Development verification: `npm run build`, `npm run lint`, then
+`node --test scripts/recovery.test.cjs`. The recovery suite uses controlled HTTP
+responses and spends no credits.
