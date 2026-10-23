@@ -202,6 +202,10 @@ export class MagicHour implements INodeType {
 		const results: INodeExecutionData[] = [];
 
 		for (let i = 0; i < items.length; i++) {
+			// Keep accepted jobs recoverable even when a later poll or download fails.
+			let acceptedProjectId: string | null = null;
+			let acceptedCredits: number | null = null;
+			let activeOperation: Operation | undefined;
 			try {
 				const resource = this.getNodeParameter('resource', i) as string;
 				const operation = this.getNodeParameter('operation', i) as string;
@@ -228,6 +232,7 @@ export class MagicHour implements INodeType {
 				}
 
 				const op = findOperation(operation);
+				activeOperation = op;
 				if (!op) {
 					throw new NodeOperationError(
 						this.getNode(), `Unknown operation "${operation}"`, { itemIndex: i },
@@ -238,6 +243,8 @@ export class MagicHour implements INodeType {
 				const payload = await buildPayload.call(this, op, i);
 				const created = await magicHourRequest.call(this, 'POST', op.path, payload);
 				const projectId = String(created.id ?? '');
+				acceptedProjectId = projectId || null;
+				acceptedCredits = (created.credits_charged as number | null) ?? null;
 				if (!projectId) {
 					throw new NodeOperationError(
 						this.getNode(),
@@ -270,12 +277,23 @@ export class MagicHour implements INodeType {
 					this, projectId, op.namespace, timeout, i,
 				);
 
+				acceptedCredits = result.creditsCharged ?? acceptedCredits;
+
 				if (result.status !== 'complete' && result.status !== 'completed') {
 					throw new NodeOperationError(
 						this.getNode(),
 						`Magic Hour could not complete this generation (status: ${result.status}). Project ID ${projectId}.`,
 						{ itemIndex: i },
 					);
+				}
+
+				const downloadUrls = result.downloads.filter((url) => {
+					try { return new URL(url).protocol === 'https:'; } catch { return false; }
+				});
+				if (!downloadUrls.length) {
+					throw new NodeOperationError(this.getNode(),
+						'Magic Hour completed this project without a usable download URL. Retrieve the same project again before creating another generation.',
+						{ itemIndex: i });
 				}
 
 				results.push({
@@ -286,13 +304,17 @@ export class MagicHour implements INodeType {
 						mediaType: MEDIA_MIME[op.mediaType] ?? null,
 						projectId,
 						externalId,
-						creditsCharged: result.creditsCharged ?? null,
-						outputUrl: result.downloads[0] ?? null,
-						downloadUrls: result.downloads,
+						creditsCharged: acceptedCredits,
+						outputUrl: downloadUrls[0],
+						downloadUrls,
 					}),
 					pairedItem: { item: i },
 				});
 			} catch (error) {
+				const originalMessage = (error as Error).message;
+				const errorMessage = acceptedProjectId && !originalMessage.includes(acceptedProjectId)
+					? `${originalMessage} Project ID ${acceptedProjectId}. Retrieve this existing project before creating another generation.`
+					: originalMessage;
 				// Honour the workflow's own error setting rather than always
 				// stopping: a 200-item batch should not die on one bad row.
 				if (this.continueOnFail()) {
@@ -307,24 +329,24 @@ export class MagicHour implements INodeType {
 						json: shapeOutput({
 							status: 'failed',
 							operation: (this.getNodeParameter('operation', i, '') as string) || null,
-							slug: null,
-							mediaType: null,
-							projectId: null,
+							slug: activeOperation?.slug ?? null,
+							mediaType: activeOperation ? MEDIA_MIME[activeOperation.mediaType] ?? null : null,
+							projectId: acceptedProjectId,
 							externalId,
-							creditsCharged: null,
+							creditsCharged: acceptedCredits,
 							outputUrl: null,
 							downloadUrls: [],
 							errorCode: 'generation_failed',
-							errorMessage: (error as Error).message,
+							errorMessage,
 						}),
 						pairedItem: { item: i },
 					});
 					continue;
 				}
 				if (error instanceof NodeOperationError) {
-					throw new NodeOperationError(this.getNode(), error.message, { itemIndex: i });
+					throw new NodeOperationError(this.getNode(), errorMessage, { itemIndex: i });
 				}
-				throw new NodeApiError(this.getNode(), error as JsonObject, { itemIndex: i });
+				throw new NodeApiError(this.getNode(), error as JsonObject, { itemIndex: i, message: errorMessage });
 			}
 		}
 
