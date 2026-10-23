@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-magichour",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Generate and edit video, image and audio with Magic Hour",
   "license": "MIT",
   "homepage": "https://magichour.ai",
@@ -20,10 +20,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/malihashar/n8n-nodes-magichour.git"
+    "url": "git+https://github.com/magichourhq/n8n-nodes-magichour.git"
   },
   "bugs": {
-    "url": "https://github.com/malihashar/n8n-nodes-magichour/issues"
+    "url": "https://github.com/magichourhq/n8n-nodes-magichour/issues"
   },
   "scripts": {
     "build": "n8n-node build",
