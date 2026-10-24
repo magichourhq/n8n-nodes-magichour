@@ -10,8 +10,12 @@ driven from a shared catalog (`catalog/operations.json`).
 
 ## Installation
 
-**Self-hosted** — Settings → Community Nodes → Install, then enter
-`n8n-nodes-magichour`.
+**Self-hosted 0.2.4** — Use the [tested GitHub archive](https://github.com/magichourhq/n8n-nodes-magichour/releases/download/0.2.4/n8n-nodes-magichour-0.2.4.tgz)
+and follow the [manual installation and restart instructions](workflows/README.md#install-and-run).
+Version 0.2.4 is not published to npm.
+
+**Self-hosted npm 0.2.3** — Settings → Community Nodes → Install, then enter
+`n8n-nodes-magichour`. This installs the older 0.2.3 release.
 
 **n8n Cloud** — only verified community nodes can be installed. Once this
 package is verified, search for "Magic Hour" in the nodes panel. Installing
