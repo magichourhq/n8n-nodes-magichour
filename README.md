@@ -190,9 +190,31 @@ Refresh the catalog from `magic-hour-channels` when Magic Hour ships new APIs.
 
 ## Use with AI Agents
 
-This node is available as a tool, so an AI Agent can call it and fill in the
-parameters itself — for example generating an image from a prompt it wrote, or
-turning a supplied photo into a video.
+Import [recover-project-with-ai.example.json](workflows/recover-project-with-ai.example.json)
+to ask an AI Agent for the status of an existing image project without creating
+another Magic Hour generation.
+
+1. Follow the [self-hosted 0.2.4 installation instructions](workflows/README.md#install-and-run).
+   This example uses the GitHub 0.2.4 archive; npm currently serves 0.2.3, and the
+   package is not verified for n8n Cloud.
+2. Select your **Magic Hour API** credential on **Get existing Magic Hour image**
+   and an **Ollama** credential on **Local Ollama Chat Model**. Ollama must be
+   reachable from n8n and serve the selected model. Only
+   `qwen2.5:7b-instruct-q4_K_M` was validated; configure your own model and credentials.
+3. Replace `YOUR_EXISTING_IMAGE_PROJECT_ID` on the Magic Hour tool with an image
+   project ID you already own, then run the workflow. The agent reports the
+   returned project ID, status and credits charged.
+
+The tool is fixed to **Project → Get Status → Image**; retries are off and the
+agent is limited to three iterations. GET does not create a new Magic Hour job,
+but your chosen model may have its own costs. An incomplete job can be checked
+again with the same ID; do not repeat its original generation.
+
+Get Status returns the raw API shape, including `status: complete` and signed
+URLs in `downloads[].url`. The full tool response is sent to the configured
+model, so choose a model appropriate for your project data. The prompt asks the
+agent to omit URLs from its answer. To save a completed result, use the original
+full URL in an HTTP Request download without a Magic Hour authorization header.
 
 ## Errors
 

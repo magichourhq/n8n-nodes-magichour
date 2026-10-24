@@ -1,0 +1,125 @@
+{
+  "name": "Magic Hour: recover an existing image with an AI Agent",
+  "nodes": [
+    {
+      "id": "1",
+      "name": "Start read-only recovery",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        180,
+        240
+      ],
+      "parameters": {},
+      "retryOnFail": false
+    },
+    {
+      "id": "2",
+      "name": "AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        500,
+        240
+      ],
+      "retryOnFail": false,
+      "parameters": {
+        "promptType": "define",
+        "text": "Use the Magic Hour status tool once to retrieve the configured existing image project. Report its project ID, status and credits charged. Do not create a generation, upload media, include download URLs or reveal credentials.",
+        "options": {
+          "systemMessage": "Retrieve the configured existing project with the provided read-only tool. Report the returned values accurately and concisely. Do not invent a result or include URLs or account data.",
+          "maxIterations": 3
+        }
+      }
+    },
+    {
+      "id": "3",
+      "name": "Local Ollama Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
+      "typeVersion": 1,
+      "position": [
+        390,
+        490
+      ],
+      "retryOnFail": false,
+      "parameters": {
+        "model": "qwen2.5:7b-instruct-q4_K_M",
+        "options": {
+          "think": false,
+          "temperature": 0,
+          "numCtx": 8192,
+          "numPredict": 1024,
+          "numThread": 4
+        }
+      },
+      "credentials": {
+        "ollamaApi": {
+          "name": "Ollama"
+        }
+      }
+    },
+    {
+      "id": "4",
+      "name": "Get existing Magic Hour image",
+      "type": "n8n-nodes-magichour.magicHourTool",
+      "typeVersion": 1,
+      "position": [
+        700,
+        490
+      ],
+      "retryOnFail": false,
+      "parameters": {
+        "resource": "project",
+        "operation": "get",
+        "projectId": "YOUR_EXISTING_IMAGE_PROJECT_ID",
+        "projectType": "image-projects"
+      },
+      "credentials": {
+        "magicHourApi": {
+          "name": "Magic Hour API"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Start read-only recovery": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Local Ollama Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get existing Magic Hour image": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "executionTimeout": 180,
+    "saveManualExecutions": true
+  },
+  "active": false
+}
