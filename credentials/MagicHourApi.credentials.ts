@@ -12,7 +12,7 @@ export class MagicHourApi implements ICredentialType {
 
 	displayName = 'Magic Hour API';
 
-	documentationUrl = 'https://docs.magichour.ai/api-reference/authentication';
+	documentationUrl = 'https://docs.magichour.ai/get-started/authentication';
 
 	properties: INodeProperties[] = [
 		{
