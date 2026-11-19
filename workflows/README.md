@@ -4,7 +4,7 @@ Animate a product photo with Magic Hour, then download the MP4 directly in n8n. 
 
 ## Install and run
 
-1. Use self-hosted n8n. In Settings → Community Nodes → Install, enter `@magichourhq/n8n-nodes-media-generation`. Unverified community nodes cannot be installed on n8n Cloud.
+1. Use self-hosted n8n. In Settings → Community Nodes → Install, enter `@magichourhq/n8n-nodes-magichour`. Unverified community nodes cannot be installed on n8n Cloud.
 2. Create a [Magic Hour API key](https://magichour.ai/developer?tab=api-keys) and save it in a **Magic Hour API** credential in n8n. Select that credential on the Magic Hour node. Never paste a key into the workflow JSON.
 3. Import [image-to-video.example.json](image-to-video.example.json). The included photo is Magic Hour's fictional AURORA product, not a customer asset. Replace its URL with your own authorized product photo when adapting.
 4. Review the prompt, duration and resolution, and check the [current API pricing and account estimate](https://help.magichour.ai/en/articles/8350794-api-pricing-calculator-and-usage-based-billing). Executing Magic Hour creates a billable generation on your account; the sample requests five seconds at 720p.

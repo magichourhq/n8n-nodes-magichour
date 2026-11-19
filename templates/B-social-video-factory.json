@@ -42,7 +42,7 @@
       },
       "id": "mh",
       "name": "Magic Hour T2V",
-      "type": "@magichourhq/n8n-nodes-media-generation.magicHour",
+      "type": "@magichourhq/n8n-nodes-magichour.magicHour",
       "typeVersion": 1,
       "position": [480, 0],
       "credentials": { "magicHourApi": { "id": "REPLACE", "name": "Magic Hour API" } }

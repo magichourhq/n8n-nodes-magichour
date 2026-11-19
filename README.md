@@ -1,6 +1,6 @@
-# @magichourhq/n8n-nodes-media-generation
+# @magichourhq/n8n-nodes-magichour
 
-[![npm](https://img.shields.io/npm/v/@magichourhq/n8n-nodes-media-generation)](https://www.npmjs.com/package/@magichourhq/n8n-nodes-media-generation)
+[![npm](https://img.shields.io/npm/v/@magichourhq/n8n-nodes-magichour)](https://www.npmjs.com/package/@magichourhq/n8n-nodes-magichour)
 
 Generate and edit video, image and audio with [Magic Hour](https://magichour.ai)
 from inside n8n.
@@ -13,7 +13,7 @@ driven from a shared catalog (`catalog/operations.json`).
 ## Installation
 
 **Self-hosted** — Settings → Community Nodes → Install, then enter
-`@magichourhq/n8n-nodes-media-generation`.
+`@magichourhq/n8n-nodes-magichour`.
 
 **n8n Cloud** — only verified community nodes can be installed. Once this
 package is verified, search for "Magic Hour" in the nodes panel. Installing
@@ -30,23 +30,23 @@ npm run build
 npm run dev
 ```
 
-### Moving from `n8n-nodes-magichour`
+### Moving from the unscoped `n8n-nodes-magichour`
 
-Versions up to 0.2.3 were published as `n8n-nodes-magichour`. That package no
-longer gets updates. n8n identifies a node by its package name, so workflows
-that use the old node need to point at the new one:
+Versions up to 0.2.3 were published without a scope, as `n8n-nodes-magichour`.
+That package no longer gets updates. n8n identifies a node by its package name,
+so workflows that use the old node need to point at the new one:
 
-1. Install `@magichourhq/n8n-nodes-media-generation`. Both packages can be
+1. Install `@magichourhq/n8n-nodes-magichour`. Both packages can be
    installed at the same time, and your **Magic Hour API** credential works
    with both.
 2. In each workflow's JSON, replace every `n8n-nodes-magichour.magicHour`
-   with `@magichourhq/n8n-nodes-media-generation.magicHour`. This also covers
+   with `@magichourhq/n8n-nodes-magichour.magicHour`. This also covers
    the AI tool node (`magicHourTool`). Node settings and credentials carry
    over. With the n8n CLI, the workflow keeps its ID:
 
    ```bash
    n8n export:workflow --id=<workflow-id> --output=workflow.json
-   sed -i 's#"n8n-nodes-magichour\.magicHour#"@magichourhq/n8n-nodes-media-generation.magicHour#g' workflow.json
+   sed -i 's#"n8n-nodes-magichour\.magicHour#"@magichourhq/n8n-nodes-magichour.magicHour#g' workflow.json
    n8n import:workflow --input=workflow.json
    ```
 

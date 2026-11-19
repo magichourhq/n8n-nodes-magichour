@@ -1,5 +1,5 @@
 {
-  "name": "@magichourhq/n8n-nodes-media-generation",
+  "name": "@magichourhq/n8n-nodes-magichour",
   "version": "0.3.0",
   "description": "Generate and edit video, image and audio with Magic Hour",
   "license": "MIT",
