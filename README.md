@@ -1,4 +1,6 @@
-# n8n-nodes-magichour
+# @magichourhq/n8n-nodes-media-generation
+
+[![npm](https://img.shields.io/npm/v/@magichourhq/n8n-nodes-media-generation)](https://www.npmjs.com/package/@magichourhq/n8n-nodes-media-generation)
 
 Generate and edit video, image and audio with [Magic Hour](https://magichour.ai)
 from inside n8n.
@@ -10,20 +12,14 @@ driven from a shared catalog (`catalog/operations.json`).
 
 ## Installation
 
-**Self-hosted 0.2.4** — Use the [tested GitHub archive](https://github.com/magichourhq/n8n-nodes-magichour/releases/download/0.2.4/n8n-nodes-magichour-0.2.4.tgz)
-and follow the [manual installation and restart instructions](workflows/README.md#install-and-run).
-Version 0.2.4 is not published to npm.
-
-**Self-hosted npm 0.2.3** — Settings → Community Nodes → Install, then enter
-`n8n-nodes-magichour`. This installs the older 0.2.3 release.
+**Self-hosted** — Settings → Community Nodes → Install, then enter
+`@magichourhq/n8n-nodes-media-generation`.
 
 **n8n Cloud** — only verified community nodes can be installed. Once this
 package is verified, search for "Magic Hour" in the nodes panel. Installing
 the package by npm name is available only on self-hosted n8n.
 
 See [n8n's community-node installation options](https://docs.n8n.io/integrations/community-nodes/installation-and-management/).
-
-Maintained by [malihashar](https://github.com/malihashar); product branding and API are Magic Hour.
 
 **Local / unpublished** — from this repo:
 
@@ -33,6 +29,31 @@ npm run build
 # then link into your n8n custom extensions folder, or:
 npm run dev
 ```
+
+### Moving from `n8n-nodes-magichour`
+
+Versions up to 0.2.3 were published as `n8n-nodes-magichour`. That package no
+longer gets updates. n8n identifies a node by its package name, so workflows
+that use the old node need to point at the new one:
+
+1. Install `@magichourhq/n8n-nodes-media-generation`. Both packages can be
+   installed at the same time, and your **Magic Hour API** credential works
+   with both.
+2. In each workflow's JSON, replace every `n8n-nodes-magichour.magicHour`
+   with `@magichourhq/n8n-nodes-media-generation.magicHour`. This also covers
+   the AI tool node (`magicHourTool`). Node settings and credentials carry
+   over. With the n8n CLI, the workflow keeps its ID:
+
+   ```bash
+   n8n export:workflow --id=<workflow-id> --output=workflow.json
+   sed -i 's#"n8n-nodes-magichour\.magicHour#"@magichourhq/n8n-nodes-media-generation.magicHour#g' workflow.json
+   n8n import:workflow --input=workflow.json
+   ```
+
+   In the editor, you can instead download the workflow, make the same
+   replacement in the file and import it as a new workflow, or delete each
+   Magic Hour node and add it again from the new package.
+3. After every workflow uses the new node, uninstall `n8n-nodes-magichour`.
 
 ## Credentials
 
@@ -198,9 +219,8 @@ Import [recover-project-with-ai.example.json](workflows/recover-project-with-ai.
 to ask an AI Agent for the status of an existing image project without creating
 another Magic Hour generation.
 
-1. Follow the [self-hosted 0.2.4 installation instructions](workflows/README.md#install-and-run).
-   This example uses the GitHub 0.2.4 archive; npm currently serves 0.2.3, and the
-   package is not verified for n8n Cloud.
+1. Follow the [self-hosted installation instructions](workflows/README.md#install-and-run).
+   The package is not yet verified for n8n Cloud.
 2. Select your **Magic Hour API** credential on **Get existing Magic Hour image**
    and an **Ollama** credential on **Local Ollama Chat Model**. Ollama must be
    reachable from n8n and serve the selected model. Only
@@ -238,7 +258,7 @@ Same support surface as the Magic Hour Apify Actors:
 | Pricing | https://magichour.ai/pricing |
 | Support | support@magichour.ai |
 | Community | https://discord.gg/JX5rgsZaJp |
-| Issues (this node) | https://github.com/malihashar/n8n-nodes-magichour/issues |
+| Issues (this node) | https://github.com/magichourhq/n8n-nodes-magichour/issues |
 
 ## License
 

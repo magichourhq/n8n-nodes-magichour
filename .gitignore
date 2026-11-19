@@ -1,6 +1,6 @@
 dist
 node_modules
-n8n-nodes-magichour-*.tgz
+*.tgz
 
 .env
 .env.local

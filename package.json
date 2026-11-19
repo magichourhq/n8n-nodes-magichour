@@ -1,6 +1,6 @@
 {
-  "name": "n8n-nodes-magichour",
-  "version": "0.2.4",
+  "name": "@magichourhq/n8n-nodes-media-generation",
+  "version": "0.3.0",
   "description": "Generate and edit video, image and audio with Magic Hour",
   "license": "MIT",
   "homepage": "https://magichour.ai",
@@ -38,6 +38,9 @@
   "files": [
     "dist"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "n8n": {
     "n8nNodesApiVersion": 1,
     "strict": true,
