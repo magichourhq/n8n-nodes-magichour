@@ -909,6 +909,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@magichourhq/n8n-nodes-magichour@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "@magichourhq/n8n-nodes-magichour@workspace:."
+  dependencies:
+    "@n8n/node-cli": "npm:0.46.4"
+    "@types/node": "npm:18.19.130"
+    eslint: "npm:9.32.0"
+    n8n-workflow: "npm:2.37.4"
+    prettier: "npm:3.6.2"
+    typescript: "npm:5.9.2"
+  peerDependencies:
+    n8n-workflow: "*"
+  languageName: unknown
+  linkType: soft
+
 "@marijn/find-cluster-break@npm:^1.0.0":
   version: 1.0.4
   resolution: "@marijn/find-cluster-break@npm:1.0.4"
@@ -4021,21 +4036,6 @@ __metadata:
   checksum: 10/6e668bd5803255ab0779c3983b9412b5c4f4f90e822230e0e8f414f5449ed7a137eed29430e835aa689886f663385cfe05f808eb34b16e1f3a95525889b05cd3
   languageName: node
   linkType: hard
-
-"n8n-nodes-magichour@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "n8n-nodes-magichour@workspace:."
-  dependencies:
-    "@n8n/node-cli": "npm:0.46.4"
-    "@types/node": "npm:18.19.130"
-    eslint: "npm:9.32.0"
-    n8n-workflow: "npm:2.37.4"
-    prettier: "npm:3.6.2"
-    typescript: "npm:5.9.2"
-  peerDependencies:
-    n8n-workflow: "*"
-  languageName: unknown
-  linkType: soft
 
 "n8n-workflow@npm:2.37.4":
   version: 2.37.4

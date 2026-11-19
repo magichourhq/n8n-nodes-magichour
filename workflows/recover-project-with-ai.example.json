@@ -61,7 +61,7 @@
     {
       "id": "4",
       "name": "Get existing Magic Hour image",
-      "type": "n8n-nodes-magichour.magicHourTool",
+      "type": "@magichourhq/n8n-nodes-magichour.magicHourTool",
       "typeVersion": 1,
       "position": [
         700,

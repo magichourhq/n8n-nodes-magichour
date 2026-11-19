@@ -37,7 +37,7 @@
       },
       "id": "magic-hour",
       "name": "Magic Hour",
-      "type": "n8n-nodes-magichour.magicHour",
+      "type": "@magichourhq/n8n-nodes-magichour.magicHour",
       "typeVersion": 1,
       "position": [480, 0]
     },
