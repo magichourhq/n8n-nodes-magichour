@@ -24,10 +24,10 @@ See [n8n's community-node installation options](https://docs.n8n.io/integrations
 **Local / unpublished** — from this repo:
 
 ```bash
-npm install
-npm run build
+yarn install
+yarn build
 # then link into your n8n custom extensions folder, or:
-npm run dev
+yarn dev
 ```
 
 ### Moving from the unscoped `n8n-nodes-magichour`
@@ -207,7 +207,7 @@ Launch status vs the official brief: [`STATUS.md`](STATUS.md). E2E checklist: [`
 ## Coverage check
 
 ```bash
-npm run coverage
+yarn coverage
 ```
 
 Fails if `catalog/operations.json` lists an endpoint the node does not expose.
@@ -273,6 +273,6 @@ same ID and media type. Do not repeat the create action to recover a rendering d
 A completed job with no usable download returns an error instead of `succeeded`.
 Failed-job credit refunds are reflected when the provider returns the final charge.
 
-Development verification: `npm run build`, `npm run lint`, then
+Development verification: `yarn build`, `yarn lint`, then
 `node --test scripts/recovery.test.cjs`. The recovery suite uses controlled HTTP
 responses and spends no credits.
