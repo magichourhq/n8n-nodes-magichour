@@ -77,8 +77,9 @@ project _may_ contain example nodes and/or credentials that need to be
 - **Always** address any lint/typecheck errors/warnings, unless there is a
   **very specific reason** to ignore/disable it
 - Make sure to use **proper types whenever possible**
-- If you are updating the npm package version, make sure to **update
-  CHANGELOG.md** in the root of the repository
+- To release, bump the version in `package.json` in a PR. Merging it to
+  `main` publishes to npm and creates the GitHub release with generated notes.
+  There is no changelog file
 - Read `.agents/workflow.md` for more info
 
 ## Context-specific docs

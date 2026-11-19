@@ -1,6 +1,8 @@
+.yarn/cache
+.yarn/install-state.gz
 dist
 node_modules
-n8n-nodes-magichour-*.tgz
+*.tgz
 
 .env
 .env.local

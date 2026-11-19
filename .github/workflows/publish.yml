@@ -50,11 +50,13 @@ jobs:
           registry-url: "https://registry.npmjs.org"
           package-manager-cache: false
       - if: env.CHANGED == 'true'
-        run: npm ci
+        run: yarn install --immutable
       - if: env.CHANGED == 'true'
-        run: npm run lint
+        run: yarn lint
       - if: env.CHANGED == 'true'
-        run: npm run build
+        run: yarn build
+      - if: env.CHANGED == 'true'
+        run: yarn pack
       - name: Create GitHub release
         if: env.CHANGED == 'true'
         env:
@@ -76,7 +78,4 @@ jobs:
             --generate-notes \
             "${PRERELEASE_FLAG[@]}"
       - if: env.CHANGED == 'true'
-        # RELEASE_MODE lets the n8n-node prepublishOnly check pass.
-        env:
-          RELEASE_MODE: "true"
-        run: npm publish --tag "$DIST_TAG"
+        run: npm publish package.tgz --tag "$DIST_TAG"
