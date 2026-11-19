@@ -1,6 +1,6 @@
 {
   "name": "@magichourhq/n8n-nodes-magichour",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "packageManager": "yarn@4.18.0",
   "description": "Generate and edit video, image and audio with Magic Hour",
   "license": "MIT",
@@ -15,8 +15,8 @@
     "talking-photo"
   ],
   "author": {
-    "name": "Muhammad Ali Hashar",
-    "email": "alihashar0406@gmail.com",
+    "name": "Magic Hour",
+    "email": "support@magichour.ai",
     "url": "https://magichour.ai"
   },
   "repository": {
